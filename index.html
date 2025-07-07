@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nikita Lekhak!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            text-align: center;
+            margin: 50px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.5s forwards 0.5s;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-weight: 300;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .birthday-cake {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 1s forwards 1s;
+        }
+
+        .birthday-cake img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+        }
+
+        .heart-pulse {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: pulse 2s infinite;
+        }
+
+        .heart-pulse::before,
+        .heart-pulse::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart-pulse::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart-pulse::after {
+            top: 0;
+            left: -10px;
+        }
+
+        .photos-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 1.5s;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .photo-frame:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 80%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .photo-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-caption {
+            height: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            font-weight: 600;
+        }
+
+        .message-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 2s;
+            position: relative;
+        }
+
+        .message-section::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.05);
+            filter: blur(15px);
+            z-index: -1;
+        }
+
+        .message-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 2.5s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 0.9rem;
+            color: #777;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 3s;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: rotate(45deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: rotate(45deg) scale(1.3);
+                opacity: 0.6;
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .photos-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .photo-frame {
+                width: 280px;
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti animation container -->
+    <canvas id="confetti-canvas" class="confetti"></canvas>
+    
+    <div class="container">
+        <header>
+            <h1>Happy Birthday Nikita!</h1>
+            <h2>Wishing you a day filled with love, joy and happiness</h2>
+        </header>
+        
+        <div class="birthday-cake">
+            <img src="1.jpg" alt="Colorful birthday cake with strawberries and Happy Birthday written on top" />
+            <div class="heart-pulse" style="top: -20px; left: 50%;"></div>
+            <div class="heart-pulse" style="top: 40px; left: 20%; animation-delay: 0.5s;"></div>
+            <div class="heart-pulse" style="top: 30px; left: 80%; animation-delay: 0.8s;"></div>
+        </div>
+        
+        <div class="photos-section">
+            <div class="photo-frame">
+                <img src="2.jpg" alt="Nikita smiling in a sunny outdoor setting with trees in the background" />
+                <div class="photo-caption">Beautiful Moments</div>
+            </div>
+            
+            <div class="photo-frame">
+                <img src="3.jpg" alt="Nikita dressed elegantly for a special occasion with warm lighting" />
+                <div class="photo-caption">Special Occasions</div>
+            </div>
+            
+            <div class="photo-frame">
+                <img src="4.jpg" alt="Nikita laughing with friends in a casual setting" />
+                <div class="photo-caption">Happy Times</div>
+            </div>
+        </div>
+        
+        <div class="message-section">
+            <p>Dear <span class="highlight">Nikita Didi</span>,</p>
+            <p>On this special day, I want to express how much you mean to me. You're not just my sister, but also my friend, guide and inspiration.</p>
+            <p>May this year bring you abundant happiness, success in all your endeavors, and wonderful memories to cherish.</p>
+            <p class="highlight">Happy Birthday dear sister!</p>
+            
+            <button class="btn" id="cake-btn">Click for Surprise!</button>
+        </div>
+        
+        <footer>
+            <p>Made with love ♥ | Birthday Wishes</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Confetti animation
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+            
+            const ctx = canvas.getContext('2d');
+            const particles = [];
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffc154', '#47b8e0'];
+            
+            // Create particles
+            function initConfetti() {
+                for (let i = 0; i < 100; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height - canvas.height,
+                        size: Math.random() * 10 + 5,
+                        speed: Math.random() * 3 + 1,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        angle: Math.random() * 360,
+                        rotation: Math.random() * 0.2 - 0.1
+                    });
+                }
+            }
+            
+            // Draw particles
+            function drawConfetti() {
+                requestAnimationFrame(drawConfetti);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(particle => {
+                    ctx.save();
+                    ctx.translate(particle.x, particle.y);
+                    ctx.rotate(particle.angle * Math.PI / 180);
+                    
+                    ctx.fillStyle = particle.color;
+                    ctx.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size);
+                    
+                    ctx.restore();
+                    
+                    particle.y += particle.speed;
+                    particle.angle += particle.rotation;
+                    
+                    if (particle.y > canvas.height) {
+                        particle.y = -particle.size;
+                        particle.x = Math.random() * canvas.width;
+                    }
+                });
+            }
+            
+            initConfetti();
+            drawConfetti();
+            
+            // Button interaction
+            const cakeBtn = document.getElementById('cake-btn');
+            cakeBtn.addEventListener('click', function() {
+                // Create cake pop animation
+                const cake = document.createElement('div');
+                cake.innerHTML = '🎂';
+                cake.style.position = 'fixed';
+                cake.style.fontSize = '50px';
+                cake.style.left = (Math.random() * window.innerWidth) + 'px';
+                cake.style.top = window.innerHeight + 'px';
+                cake.style.animation = 'float 3s ease-in-out forwards';
+                cake.style.zIndex = '1000';
+                document.body.appendChild(cake);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    cake.remove();
+                }, 3000);
+                
+                // Spawn hearts animation
+                spawnHearts();
+            });
+            
+            // Spawn floating hearts
+            function spawnHearts() {
+                const container = document.querySelector('.container');
+                
+                for (let i = 0; i < 30; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-pulse';
+                    heart.style.position = 'absolute';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = Math.random() * 100 + '%';
+                    heart.style.width = Math.random() * 20 + 10 + 'px';
+                    heart.style.height = heart.style.width;
+                    heart.style.animation = `pulse ${Math.random() * 2 + 1}s infinite ${Math.random() * 1}s`;
+                    
+                    container.appendChild(heart);
+                    
+                    // Remove after some time
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 2000);
+                }
+            }
+            
+            // Add photo hover effect
+            const photoFrames = document.querySelectorAll('.photo-frame');
+            photoFrames.forEach(frame => {
+                frame.addEventListener('mousemove', function(e) {
+                    const x = e.clientX - frame.getBoundingClientRect().left;
+                    const y = e.clientY - frame.getBoundingClientRect().top;
+                    
+                    const centerX = frame.offsetWidth / 2;
+                    const centerY = frame.offsetHeight / 2;
+                    
+                    const angleX = (centerX - x) / 25;
+                    const angleY = (centerY - y) / 25;
+                    
+                    frame.style.transform = `rotateX(${angleY}deg) rotateY(${-angleX}deg) translateY(-10px) scale(1.05)`;
+                });
+                
+                frame.addEventListener('mouseleave', function() {
+                    frame.style.transform = 'rotateX(0) rotateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
